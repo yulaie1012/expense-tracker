@@ -21,13 +21,24 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
+  const errors = []
+
+  if (!name || !email || !password || !confirmPassword) {
+    errors.push({ message: 'Please complete all required fields.' })
+  }
+  if (password !== confirmPassword) {
+    errors.push({ message: 'Password and Confirm Password does not match.' })
+  }
+  if (errors.length) {
+    return res.render('register', { errors, name, email, password, confirmPassword })
+  }
 
   User
     .findOne({ email })
     .then(user => {
       if (user) {
-        console.log('User already exists.')
-        res.render('register', { name, email, password, confirmPassword })
+        errors.push({ message: 'The Email is already registered.' })
+        res.render('register', { errors, name, email, password, confirmPassword })
       } else {
         return bcrypt
           .genSalt(10)
@@ -42,6 +53,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', 'You\'ve been logged out.')
   res.redirect('/users/login')
 })
 
