@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const User = require('../user')
+const Category = require('../category')
 const Record = require('../record')
 
 const db = require('../../config/mongoose')
@@ -53,7 +54,14 @@ db.once('open', () => {
         return User
           .findOne({ name: SEED_RECORD.user })
           .then(user => user._id)
-          .then(userId => Record.create({ ...SEED_RECORD, userId }))
+          .then(userId => {
+            return Category
+              .findOne({ name: SEED_RECORD.category })
+              .then(category => category._id)
+              .then(categoryId => {
+                return Record.create({ ...SEED_RECORD, userId, categoryId })
+              })
+          })
           .catch(err => console.error(err))
       }
     ))
