@@ -1,10 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
+const moment = require('moment')
+
 const Record = require('../../models/record')
 
 router.get('/new', (req, res) => {
-  res.render('new')
+  const todayDate = moment().format('YYYY-MM-DD')
+
+  res.render('new', { todayDate })
 })
 
 router.post('/', (req, res) => {
@@ -20,7 +24,10 @@ router.get('/:id/edit', (req, res) => {
   Record
     .findOne({ _id })
     .lean()
-    .then(record => res.render('edit', { record }))
+    .then(record => {
+      record.date = moment(record.date).format('YYYY-MM-DD')
+      res.render('edit', { record })
+    })
     .catch(err => console.error(err))
 })
 
