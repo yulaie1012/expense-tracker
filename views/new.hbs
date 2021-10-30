@@ -1,26 +1,33 @@
-<form action="/records" method="POST">
-  <div>
-    <label for="name">名稱*：</label>
-    <input type="text" name="name" id="name" required>
+<div class="row mt-3">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h1 class="text-center mt-1">新增支出</h1>
+      <form action="/records" method="POST">
+        <div class="form-group">
+          <label for="name">名稱*：</label>
+          <input type="text" class="form-control" name="name" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="date">日期*：</label>
+          <input type="date" class="form-control" name="date" id="date" value="{{todayDate}}" required>
+        </div>
+        <div class="form-group">
+          <label for="category">類別*：</label>
+          <select class="form-control" name="category" id="category" required>
+            <option disabled selected value="">請選擇類別</option>
+            <option value="家居物業">家居物業</option>
+            <option value="交通出行">交通出行</option>
+            <option value="休閒娛樂">休閒娛樂</option>
+            <option value="餐飲食品">餐飲食品</option>
+            <option value="其他">其他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="amount">金額*：</label>
+          <input type="number" class="form-control" name="amount" id="amount" min="0" required>
+        </div>
+        <button type="submit" class="btn btn-outline-dark btn-block">新增支出</button>
+      </form>
+    </div>
   </div>
-  <div>
-    <label for="date">日期*：</label>
-    <input type="date" name="date" id="date" value={{todayDate}} required>
-  </div>
-  <div>
-    <label for="category">類別*：</label>
-    <select name="category" id="category" required>
-      <option disabled selected value="">請選擇類別</option>
-      <option value="家居物業">家居物業</option>
-      <option value="交通出行">交通出行</option>
-      <option value="休閒娛樂">休閒娛樂</option>
-      <option value="餐飲食品">餐飲食品</option>
-      <option value="其他">其他</option>
-    </select>
-  </div>
-  <div>
-    <label for="amount">金額*：</label>
-    <input type="number" name="amount" id="amount" min="0" required>
-  </div>
-  <button type="submit">新增支出</button>
-</form>
+</div>
