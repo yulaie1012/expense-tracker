@@ -13,10 +13,12 @@ router.get('/', (req, res) => {
     .lean()
     .sort({ _id: 'desc' })
     .then(records => {
+      let totalAmount = 0
       records.forEach(record => {
         record.date = moment(record.date).format('YYYY-MM-DD')
+        totalAmount += record.amount
       })
-      res.render('index', { records })
+      res.render('index', { records, totalAmount })
     })
     .catch(err => console.error(err))
 })
