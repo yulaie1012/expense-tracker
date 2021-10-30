@@ -26,7 +26,7 @@ router.get('/:id/edit', (req, res) => {
     .lean()
     .then(record => {
       record.date = moment(record.date).format('YYYY-MM-DD')
-      res.render('edit', { record })
+      console.log(res.render('edit', { record }))
     })
     .catch(err => console.error(err))
 })
