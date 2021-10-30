@@ -14,4 +14,23 @@ router.post('/', (req, res) => {
     .catch(err => console.error(err))
 })
 
+router.get('/:id/edit', (req, res) => {
+  const _id = req.params.id
+
+  Record
+    .findOne({ _id })
+    .lean()
+    .then(record => res.render('edit', { record }))
+    .catch(err => console.error(err))
+})
+
+router.put('/:id', (req, res) => {
+  const _id = req.params.id
+
+  Record
+    .findOneAndUpdate({ _id }, req.body)
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
+})
+
 module.exports = router
