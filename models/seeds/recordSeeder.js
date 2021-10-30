@@ -1,3 +1,8 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
+const User = require('../user')
 const Record = require('../record')
 
 const db = require('../../config/mongoose')
@@ -44,11 +49,17 @@ db.once('open', () => {
   Promise
     .all(Array.from(
       SEED_RECORDS,
-      SEED_RECORD => Record.create(SEED_RECORD)
+      SEED_RECORD => {
+        return User
+          .findOne({ name: SEED_RECORD.user })
+          .then(user => user._id)
+          .then(userId => Record.create({ ...SEED_RECORD, userId }))
+          .catch(err => console.error(err))
+      }
     ))
     .then(() => {
       console.log('SEED_RECORDS is done.')
       process.exit()
     })
-    .catch(err => console.log(err))
+    .catch(err => console.error(err))
 })
