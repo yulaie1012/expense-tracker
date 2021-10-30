@@ -1,1 +1,15 @@
-<h1>This is login page.</h1>
+<h1>This is Login Page!</h1>
+<form action="/users/login" method="POST">
+  <div>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+  </div>
+  <button type="submit">Login</button>
+</form>
+<p>
+  No Account? <a href="/users/register">Register</a>
+</p>
