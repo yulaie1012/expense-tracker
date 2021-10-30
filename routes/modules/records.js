@@ -12,39 +12,44 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  const userId = req.user._id
+
   Record
-    .create(req.body)
+    .create({ ...req.body, userId })
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })
 
 router.get('/:id/edit', (req, res) => {
+  const userId = req.user._id
   const _id = req.params.id
 
   Record
-    .findOne({ _id })
+    .findOne({ _id, userId })
     .lean()
     .then(record => {
       record.date = moment(record.date).format('YYYY-MM-DD')
-      console.log(res.render('edit', { record }))
+      res.render('edit', { record })
     })
     .catch(err => console.error(err))
 })
 
 router.put('/:id', (req, res) => {
+  const userId = req.user._id
   const _id = req.params.id
 
   Record
-    .findOneAndUpdate({ _id }, req.body)
+    .findOneAndUpdate({ _id, userId }, req.body)
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })
 
 router.delete('/:id', (req, res) => {
+  const userId = req.user._id
   const _id = req.params.id
 
   Record
-    .findOneAndDelete({ _id }, req.body)
+    .findOneAndDelete({ _id, userId })
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })

@@ -6,9 +6,12 @@ const moment = require('moment')
 const Record = require('../../models/record')
 
 router.get('/', (req, res) => {
+  const userId = req.user._id
+
   Record
-    .find()
+    .find({ userId })
     .lean()
+    .sort({ _id: 'desc' })
     .then(records => {
       records.forEach(record => {
         record.date = moment(record.date).format('YYYY-MM-DD')
