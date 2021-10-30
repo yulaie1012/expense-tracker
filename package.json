@@ -6,13 +6,15 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "seed": "node ./models/seeds/recordSeeder.js",
     "test": "standard && node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12"
   },
   "devDependencies": {
     "nodemon": "*",
