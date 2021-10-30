@@ -1,1 +1,7 @@
-<h1>This is index page.</h1>
+<ul>
+  {{#each records}}
+  <li>
+    {{this.name}}//{{this.date}}//{{this.amount}}//{{this.category}}//{{this.user}}
+  </li>
+  {{/each}}
+</ul>
