@@ -11,11 +11,11 @@
     <label for="category">類別*：</label>
     <select name="category" id="category" required>
       <option disabled selected value="">請選擇類別</option>
-      <option value="家居物業">家居物業</option>
-      <option value="交通出行">交通出行</option>
-      <option value="休閒娛樂">休閒娛樂</option>
-      <option value="餐飲食品">餐飲食品</option>
-      <option value="其他">其他</option>
+      <option value="家居物業" {{#if (isEqual record.category "家居物業")}}selected{{/if}}>家居物業</option>
+      <option value="交通出行" {{#if (isEqual record.category "交通出行")}}selected{{/if}}>交通出行</option>
+      <option value="休閒娛樂" {{#if (isEqual record.category "休閒娛樂")}}selected{{/if}}>休閒娛樂</option>
+      <option value="餐飲食品" {{#if (isEqual record.category "餐飲食品")}}selected{{/if}}>餐飲食品</option>
+      <option value="其他" {{#if (isEqual record.category "其他")}}selected{{/if}}>其他</option>
     </select>
   </div>
   <div>
