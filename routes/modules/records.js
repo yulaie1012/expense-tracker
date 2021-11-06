@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     .findOne({ name: category })
     .then(category => category._id)
     .then(categoryId => {
-      Record
+      return Record
         .create({ ...req.body, userId, categoryId })
     })
     .then(() => res.redirect('/'))
@@ -34,6 +34,7 @@ router.get('/:id/edit', (req, res) => {
   return Record
     .findOne({ _id, userId })
     .lean()
+    .populate('categoryId')
     .then(record => {
       record.date = moment(record.date).format('YYYY-MM-DD')
       return res.render('edit', { record })
@@ -44,9 +45,15 @@ router.get('/:id/edit', (req, res) => {
 router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
+  const category = req.body.category
 
-  return Record
-    .findOneAndUpdate({ _id, userId }, req.body)
+  return Category
+    .findOne({ name: category })
+    .then(category => category._id)
+    .then(categoryId => {
+      return Record
+        .findOneAndUpdate({ _id, userId }, { ...req.body, categoryId })
+    })
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
 })
