@@ -1,3 +1,19 @@
+<div class="col-9 mx-auto">
+  <form action="/search" method="GET" class="form-inline justify-content-end">
+    <div class="form-group mr-3">
+      <label for="category">類別：</label>
+      <select class="custom-select" name="category" id="category" onchange="this.form.submit();">
+        <option value="">全部</option>
+        <option value="家居物業" {{#if (isEqual category "家居物業")}}selected{{/if}}>家居物業</option>
+        <option value="交通出行" {{#if (isEqual category "交通出行")}}selected{{/if}}>交通出行</option>
+        <option value="休閒娛樂" {{#if (isEqual category "休閒娛樂")}}selected{{/if}}>休閒娛樂</option>
+        <option value="餐飲食品" {{#if (isEqual category "餐飲食品")}}selected{{/if}}>餐飲食品</option>
+        <option value="其他" {{#if (isEqual category "其他" )}}selected{{/if}}>其他</option>
+      </select>
+    </div>
+  </form>
+</div>
+
 <div class="col-8 mx-auto">
   <div class="text-left mb-4">
     <h1>總金額：{{totalAmount}}</h1>
